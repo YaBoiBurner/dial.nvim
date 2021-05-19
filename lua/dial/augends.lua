@@ -10,7 +10,7 @@ M['number#decimal'] = {
 
     find = common.find_pattern("%d+"),
 
-    add = function(cusror, text, addend)
+    add = function(cursor, text, addend)
         local n = tonumber(text)
         local n_string_digit = text:len()
         local n_actual_digit = tostring(n):len()
@@ -37,7 +37,7 @@ M['number#decimal#int'] = {
 
     find = common.find_pattern("-?%d+"),
 
-    add = function(cusror, text, addend)
+    add = function(cursor, text, addend)
         local n = tonumber(text)
         n = n + addend
         text = tostring(n)
@@ -53,7 +53,7 @@ M['number#decimal#fixed#zero'] = {
 
     find = common.find_pattern("%d+"),
 
-    add = function(cusror, text, addend)
+    add = function(cursor, text, addend)
         local n_digit = #text
         local n = tonumber(text)
         n = n + addend
@@ -72,7 +72,7 @@ M['number#decimal#fixed#space'] = {
 
     find = common.find_pattern(" *%d+"),
 
-    add = function(cusror, text, addend)
+    add = function(cursor, text, addend)
         local n_digit = #text
         local n = tonumber(text)
         n = n + addend
@@ -90,7 +90,7 @@ M['number#decimal#multi#smart'] = {
 
     find = common.find_pattern("%d+%.?%d*"),
 
-    add = function(cusror, text, addend)
+    add = function(cursor, text, addend)
         local n = tonumber(text)
         if addend == 0 then  -- ありえないけど
             addend = 1
@@ -116,7 +116,7 @@ M['number#decimal#multi#basic'] = {
 
     find = common.find_pattern("%d+%.?%d*"),
 
-    add = function(cusror, text, addend)
+    add = function(cursor, text, addend)
         local n = tonumber(text)
         if addend == 0 then  -- ありえないけど
             addend = 1
@@ -137,7 +137,7 @@ M['number#decimal#multi#power10'] = {
 
     find = common.find_pattern("%d+%.?%d*"),
 
-    add = function(cusror, text, addend)
+    add = function(cursor, text, addend)
         local n = tonumber(text)
         n = n * (10 ^ addend)
         text = ("%g"):format(n)
@@ -153,7 +153,7 @@ M['number#hex'] = {
 
     find = common.find_pattern("0x[0-9a-fA-F]+"),
 
-    add = function(cusror, text, addend)
+    add = function(cursor, text, addend)
         local n = tonumber(text, 16)
         n = n + addend
         if n < 0 then
@@ -171,7 +171,7 @@ M['number#octal'] = {
 
     find = common.find_pattern("0[0-7]+"),
 
-    add = function(cusror, text, addend)
+    add = function(cursor, text, addend)
         local wid = #text
         local n = tonumber(text, 8)
         n = n + addend
@@ -190,7 +190,7 @@ M['number#binary'] = {
 
     find = common.find_pattern("0b[01]+"),
 
-    add = function(cusror, text, addend)
+    add = function(cursor, text, addend)
         local wid = #text
         local n = tonumber(text:sub(3), 2)
         n = n + addend
