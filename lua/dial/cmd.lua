@@ -21,7 +21,7 @@ local function get_incremented_text_fullmatch(cursor, text, addend, search_augen
 
     local augendlst = util.filter_map(
         function(aug)
-            span = aug.find(cursor, text)
+            local span = aug.find(cursor, text)
             -- 完全一致以外は認めない
             if span == nil or span.from ~= 1 or span.to ~= #text then
                 return nil
@@ -66,7 +66,7 @@ local function get_incremented_text(cursor, text, addend, search_augends)
 
     local augendlst = util.filter_map(
         function(aug)
-            span = aug.find(cursor, text)
+            local span = aug.find(cursor, text)
             if span == nil then
                 return nil
             end
@@ -107,6 +107,7 @@ function M.increment_normal(addend, override_searchlist)
     end
 
     -- 対象の searchlist 文字列に対応する augends のリストを取得
+    local searchlist
     if override_searchlist then
         searchlist = override_searchlist
     else
@@ -136,6 +137,7 @@ end
 -- This edits the current buffer.
 local function increment_visual_normal(addend, override_searchlist)
     -- searchlist 取得
+    local searchlist
     if override_searchlist then
         searchlist = override_searchlist
     else
@@ -172,6 +174,7 @@ end
 
 local function increment_visual_block(addend, override_searchlist, is_additional)
 
+    local searchlist
     if override_searchlist then
         searchlist = override_searchlist
     else
@@ -208,6 +211,7 @@ local function increment_visual_block(addend, override_searchlist, is_additional
         local line = vim.fn.getline(row)
         local text = line:sub(col_s, col_e)
 
+        local actual_addend
         if is_additional then
             actual_addend = addend * (row - row_s + 1)
         else
@@ -239,6 +243,7 @@ function M.increment_visual(addend, override_searchlist, is_additional)
     end
 
     -- 対象の searchlist 文字列に対応する augends のリストを取得
+    local searchlist
     if override_searchlist then
         searchlist = override_searchlist
     else
@@ -279,6 +284,7 @@ function M.increment_range(addend, range, override_searchlist, is_additional)
     end
 
     -- 対象の searchlist 文字列に対応する augends のリストを取得
+    local searchlist
     if override_searchlist then
         searchlist = override_searchlist
     else
@@ -295,6 +301,7 @@ function M.increment_range(addend, range, override_searchlist, is_additional)
             end
 
             -- addend の計算
+            local actual_addend
             if is_additional then
                 actual_addend = addend * (row - range.from + 1)
             else

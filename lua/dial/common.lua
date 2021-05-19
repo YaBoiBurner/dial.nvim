@@ -4,7 +4,7 @@ local M = {}
 
 -- augend の find field を簡単に実装する。
 function M.find_pattern(ptn)
-    function f(cursor, line)
+    local function f(cursor, line)
         local idx_start = 1
         while idx_start <= #line do
             local s, e = line:find(ptn, idx_start)
@@ -30,7 +30,7 @@ end
 
 -- augend の find field を簡単に実装する。
 function M.find_pattern_regex(ptn)
-    function f(cursor, line)
+    local function f(cursor, line)
         local idx_start = 1
         while idx_start <= #line do
 
@@ -78,11 +78,11 @@ function M.enum_sequence(tbl)
         desc = vim_regex_ptn
     end
 
-    find = M.find_pattern_regex(vim_regex_ptn)
+    local find = M.find_pattern_regex(vim_regex_ptn)
 
     local function add(cursor, text, addend)
-        n_ptnlst = #strlist
-        n = 1
+        local n_ptnlst = #strlist
+        local n = 1
         for i, ptn in pairs(strlist) do
             if text:find(ptn) ~= nil then
                 n = i
@@ -122,11 +122,11 @@ function M.enum_cyclic(tbl)
         desc = vim_regex_ptn
     end
 
-    find = M.find_pattern_regex(vim_regex_ptn)
+    local find = M.find_pattern_regex(vim_regex_ptn)
 
     local function add(cursor, text, addend)
-        n_ptnlst = #strlist
-        n = 1
+        local n_ptnlst = #strlist
+        local n = 1
         for i, ptn in pairs(strlist) do
             if text:find(ptn) ~= nil then
                 n = i
